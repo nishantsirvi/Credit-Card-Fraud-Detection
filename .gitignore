@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+notebooks/*.ipynb
+
+# Dataset
+data/creditcard.csv
+data/*.csv
+
+# Results and Models
+results/*.pkl
+results/*.joblib
+results/*.csv
+models/
+
+# Plots
+plots/*.png
+plots/*.jpg
+plots/*.pdf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+
+# Streamlit
+.streamlit/
