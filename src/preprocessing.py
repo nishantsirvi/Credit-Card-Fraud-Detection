@@ -176,21 +176,6 @@ def undersample_majority_class(X_train, y_train, random_state=42):
     print("Undersampling complete.")
     
     return X_resampled, y_resampled
-    print(f"   Total samples: {len(X_train):,}")
-    
-    # Apply undersampling
-    rus = RandomUnderSampler(random_state=random_state)
-    X_resampled, y_resampled = rus.fit_resample(X_train, y_train)
-    
-    print(f"\n📈 After Undersampling:")
-    print(f"   Class distribution: {Counter(y_resampled)}")
-    print(f"   Total samples: {len(X_resampled):,}")
-    print(f"   Samples removed: {len(X_train) - len(X_resampled):,}")
-    
-    print("\n✅ Undersampling complete!")
-    print("⚠️  Note: This reduces dataset size significantly")
-    
-    return X_resampled, y_resampled
 
 
 def get_class_weights(y_train):

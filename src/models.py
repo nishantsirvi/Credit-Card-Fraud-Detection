@@ -226,7 +226,7 @@ def build_all_models(X_train, y_train, class_weights=None, use_isolation_forest=
     models['Logistic Regression'] = lr_model
     
     print("\n2. Building Random Forest Model...")
-    rf_model = RandomForestModel(n_estimators=100, class_weights=class_weights)
+    rf_model = RandomForestModel(n_estimators=100, class_weights=class_weights)  # 100 trees seemed like good balance between speed and performance
     rf_model.train(X_train, y_train)
     models['Random Forest'] = rf_model
     

@@ -27,28 +27,25 @@ def main():
     start_time = time.time()
     
     DATA_PATH = "data/creditcard.csv"
-    USE_SMOTE = False
+    USE_SMOTE = False  # class weights worked fine, SMOTE was slower with no real gain
     USE_UNDERSAMPLING = False
     USE_ISOLATION_FOREST = False
     PERFORM_EDA = True
     TEST_SIZE = 0.2
     RANDOM_STATE = 42
     
-    print("\nStep 1: Checking dataset...")
     if not check_dataset_exists(DATA_PATH):
         print("Error: Dataset not found")
         return
     
-    print("\nStep 2: Loading and understanding data...")
+    print("\nLoading data...")
     df = get_dataset_summary(DATA_PATH)
     
     if PERFORM_EDA:
-        print("\nStep 3: Performing exploratory data analysis...")
+        print("\nPerforming EDA...")
         perform_complete_eda(df)
-    else:
-        print("\nSkipping EDA")
     
-    print("\nStep 4: Preprocessing data...")
+    print("\nPreprocessing...")
     preprocessed_data = preprocess_data(
         df,
         use_smote=USE_SMOTE,
@@ -57,7 +54,7 @@ def main():
         random_state=RANDOM_STATE
     )
     
-    print("\nStep 5: Building models...")
+    print("\nBuilding models...")
     if USE_SMOTE or USE_UNDERSAMPLING:
         X_train = preprocessed_data['X_train_balanced']
         y_train = preprocessed_data['y_train_balanced']
@@ -74,10 +71,10 @@ def main():
         use_isolation_forest=USE_ISOLATION_FOREST
     )
     
-    print("\nStep 6: Making predictions...")
+    print("\nMaking predictions...")
     predictions, probabilities = make_predictions(models, preprocessed_data['X_test'])
     
-    print("\nStep 7: Evaluating models...")
+    print("\nEvaluating models...")
     evaluation_results = {}
     
     for model_name in models.keys():
@@ -90,7 +87,7 @@ def main():
         )
         evaluation_results[model_name] = metrics
     
-    print("\nStep 8: Comparing models...")
+    print("\nComparing models...")
     comparison_results = compare_models(
         preprocessed_data['y_test'],
         predictions,
@@ -98,7 +95,7 @@ def main():
         models
     )
     
-    print("\nStep 9: Threshold tuning...")
+    print("\nThreshold tuning...")
     best_model_name = comparison_results.loc[comparison_results['F1-Score'].idxmax(), 'Model']
     
     if probabilities[best_model_name] is not None:
@@ -111,17 +108,14 @@ def main():
     else:
         print(f"Threshold tuning not available for {best_model_name}")
     
-    print("\nStep 10: Saving results...")
+    print("\nSaving results...")
     results_dir = create_results_directory()
     
-    print(f"Saving best model: {best_model_name}")
     save_model(models[best_model_name], best_model_name, results_dir)
     
     if preprocessed_data['scaler'] is not None:
-        print("Saving scaler...")
         save_scaler(preprocessed_data['scaler'], results_dir)
     
-    print("Saving comparison results...")
     comparison_results.to_csv(os.path.join(results_dir, 'model_comparison.csv'), index=False)
     
     end_time = time.time()

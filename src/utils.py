@@ -42,15 +42,7 @@ def save_model(model, model_name, results_dir="results"):
 
 
 def load_model(filepath):
-    """
-    Load trained model from disk.
-    
-    Args:
-        filepath: Path to the saved model
-        
-    Returns:
-        Loaded model object
-    """
+    """Load trained model from disk"""
     with open(filepath, 'rb') as f:
         model = pickle.load(f)
     
@@ -59,13 +51,7 @@ def load_model(filepath):
 
 
 def save_scaler(scaler, results_dir="results"):
-    """
-    Save scaler object to disk.
-    
-    Args:
-        scaler: Fitted scaler object
-        results_dir: Directory to save the scaler
-    """
+    """Save scaler object to disk"""
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
     
@@ -81,15 +67,7 @@ def save_scaler(scaler, results_dir="results"):
 
 
 def load_scaler(filepath):
-    """
-    Load scaler object from disk.
-    
-    Args:
-        filepath: Path to the saved scaler
-        
-    Returns:
-        Loaded scaler object
-    """
+    """Load scaler object from disk"""
     with open(filepath, 'rb') as f:
         scaler = pickle.load(f)
     
@@ -98,14 +76,7 @@ def load_scaler(filepath):
 
 
 def save_results(results_dict, filename, results_dir="results"):
-    """
-    Save results dictionary to JSON file.
-    
-    Args:
-        results_dict: Dictionary containing results
-        filename: Name of the JSON file
-        results_dir: Directory to save the file
-    """
+    """Save results dictionary to JSON file"""
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
     
@@ -126,22 +97,13 @@ def print_section_header(title):
 
 
 def print_subsection(title):
-    """Print a formatted subsection"""
     print(f"\n{'─'*60}")
     print(f"{title}")
     print(f"{'─'*60}")
 
 
 def format_time(seconds):
-    """
-    Format seconds into human-readable time
-    
-    Args:
-        seconds: Time in seconds
-        
-    Returns:
-        str: Formatted time string
-    """
+    """Format seconds into human-readable time"""
     if seconds < 60:
         return f"{seconds:.2f} seconds"
     elif seconds < 3600:
@@ -173,15 +135,7 @@ def get_data_summary(df):
 
 
 def check_dataset_exists(file_path):
-    """
-    Check if dataset file exists.
-    
-    Args:
-        file_path: Path to the dataset
-        
-    Returns:
-        bool: True if exists, False otherwise
-    """
+    """Check if dataset file exists"""
     if not os.path.exists(file_path):
         print(f"\nERROR: Dataset not found at {file_path}")
         print(f"\nPlease download the dataset from:")
